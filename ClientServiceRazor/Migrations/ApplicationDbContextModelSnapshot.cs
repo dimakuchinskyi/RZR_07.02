@@ -1,0 +1,320 @@
+﻿using System;
+using ClientServiceRazor.Features.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+
+#nullable disable
+
+namespace ClientServiceRazor.Migrations
+{
+    [DbContext(typeof(ApplicationDbContext))]
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    {
+        protected override void BuildModel(ModelBuilder modelBuilder)
+        {
+#pragma warning disable 612, 618
+            modelBuilder
+                .HasAnnotation("ProductVersion", "10.0.2")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Clients.Models.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Apartment")
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Area")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Building")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Entrance")
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Room")
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Clients.Models.Client", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Patronymic")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Clients.Models.ClientFinanceAccount", b =>
+                {
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("FinanceAccountId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("ClientId", "FinanceAccountId");
+
+                    b.HasIndex("FinanceAccountId");
+
+                    b.ToTable("ClientFinanceAccounts");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Clients.Models.FinanceAccount", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FinanceAccounts");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Clients.Models.Phone", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ClientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Phones");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Users.Models.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Users.Models.Status", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Statuses");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Users.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("RoleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("StatusId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Clients.Models.Address", b =>
+                {
+                    b.HasOne("ClientServiceRazor.Features.Clients.Models.Client", "Client")
+                        .WithOne("Address")
+                        .HasForeignKey("ClientServiceRazor.Features.Clients.Models.Address", "ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Clients.Models.ClientFinanceAccount", b =>
+                {
+                    b.HasOne("ClientServiceRazor.Features.Clients.Models.Client", "Client")
+                        .WithMany("ClientFinanceAccounts")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClientServiceRazor.Features.Clients.Models.FinanceAccount", "FinanceAccount")
+                        .WithMany("ClientFinanceAccounts")
+                        .HasForeignKey("FinanceAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("FinanceAccount");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Clients.Models.Phone", b =>
+                {
+                    b.HasOne("ClientServiceRazor.Features.Clients.Models.Client", "Client")
+                        .WithMany("Phones")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Users.Models.User", b =>
+                {
+                    b.HasOne("ClientServiceRazor.Features.Users.Models.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId");
+
+                    b.HasOne("ClientServiceRazor.Features.Users.Models.Status", "Status")
+                        .WithMany("Users")
+                        .HasForeignKey("StatusId");
+
+                    b.Navigation("Role");
+
+                    b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Clients.Models.Client", b =>
+                {
+                    b.Navigation("Address");
+
+                    b.Navigation("ClientFinanceAccounts");
+
+                    b.Navigation("Phones");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Clients.Models.FinanceAccount", b =>
+                {
+                    b.Navigation("ClientFinanceAccounts");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Users.Models.Role", b =>
+                {
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("ClientServiceRazor.Features.Users.Models.Status", b =>
+                {
+                    b.Navigation("Users");
+                });
+#pragma warning restore 612, 618
+        }
+    }
+}

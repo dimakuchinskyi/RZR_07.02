@@ -1,1 +1,69 @@
-﻿
+﻿@page
+@using ClientServiceRazor.Features.Clients.Pages
+@model IndexModel
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Clients";
+}
+
+<h1>Clients</h1>
+
+<form method="post">
+    @Html.AntiForgeryToken()
+    <div>
+        <label asp-for="NewClient.Surname"></label>
+        <input asp-for="NewClient.Surname" />
+        <span asp-validation-for="NewClient.Surname"></span>
+    </div>
+    <div>
+        <label asp-for="NewClient.FirstName"></label>
+        <input asp-for="NewClient.FirstName" />
+        <span asp-validation-for="NewClient.FirstName"></span>
+    </div>
+    <div>
+        <label asp-for="NewClient.Patronymic"></label>
+        <input asp-for="NewClient.Patronymic" />
+        <span asp-validation-for="NewClient.Patronymic"></span>
+    </div>
+    <div>
+        <label asp-for="NewClient.Email"></label>
+        <input asp-for="NewClient.Email" />
+        <span asp-validation-for="NewClient.Email"></span>
+    </div>
+    <div>
+        <label asp-for="NewClient.BirthDate"></label>
+        <input asp-for="NewClient.BirthDate" type="date" />
+        <span asp-validation-for="NewClient.BirthDate"></span>
+    </div>
+    <button type="submit">Add client</button>
+</form>
+
+<hr />
+
+<table>
+    <thead>
+        <tr>
+            <th>Surname</th>
+            <th>FirstName</th>
+            <th>Patronymic</th>
+            <th>Email</th>
+            <th>BirthDate</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var c in Model.Clients)
+    {
+        <tr>
+            <td>@c.Surname</td>
+            <td>@c.FirstName</td>
+            <td>@c.Patronymic</td>
+            <td>@c.Email</td>
+            <td>@(c.BirthDate?.ToString("yyyy-MM-dd") ?? "")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

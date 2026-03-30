@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace ClientServiceRazor.Features.Data
 {
@@ -14,6 +15,7 @@ namespace ClientServiceRazor.Features.Data
             var builder = new ConfigurationBuilder()
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json", optional: true)
+                .AddJsonFile("appsettings.Development.json", optional: true)
                 .AddEnvironmentVariables();
 
             var config = builder.Build();
